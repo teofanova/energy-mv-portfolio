@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Energy M&V Portfolio · Jelena Teofanov Jakimovski</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Calibri, Arial, sans-serif;
+      background: #f5f0e8;
+      color: #3a2a1a;
+      line-height: 1.65;
+    }
+
+    /* HEADER */
+    header {
+      background: linear-gradient(135deg, #2c1a0e 0%, #4a2c10 60%, #6b4226 100%);
+      color: #fff;
+      padding: 56px 32px 40px;
+      text-align: center;
+      border-bottom: 5px solid #c9a84c;
+    }
+    header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    header .subtitle {
+      font-size: 1.05rem;
+      color: #c9a84c;
+      font-style: italic;
+      margin-bottom: 18px;
+    }
+    header .meta {
+      font-size: 0.85rem;
+      color: #e8d5a3;
+      opacity: 0.85;
+    }
+
+    /* MAIN */
+    main {
+      max-width: 900px;
+      margin: 48px auto;
+      padding: 0 24px;
+    }
+
+    /* SECTION HEADER */
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      margin-top: 48px;
+    }
+    .section-label h2 {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: #6b4226;
+      text-transform: uppercase;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(to right, #c9a84c, transparent);
+    }
+
+    /* CALLOUT */
+    .callout {
+      background: #fff;
+      border-left: 4px solid #c9a84c;
+      border-radius: 0 8px 8px 0;
+      padding: 20px 24px;
+      margin-bottom: 28px;
+      box-shadow: 0 2px 8px rgba(44,26,14,0.07);
+    }
+    .callout p { font-size: 0.95rem; color: #595959; }
+    .callout strong { color: #2c1a0e; }
+
+    /* STAT PILLS */
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 24px 0;
+    }
+    .stat {
+      background: #2c1a0e;
+      color: #e8d5a3;
+      border-radius: 20px;
+      padding: 8px 18px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+
+    /* DOCUMENT CARDS */
+    .doc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 24px;
+    }
+    @media (max-width: 640px) { .doc-grid { grid-template-columns: 1fr; } }
+
+    .doc-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 28px 24px;
+      box-shadow: 0 2px 12px rgba(44,26,14,0.09);
+      border-top: 4px solid #c9a84c;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .doc-card .doc-icon {
+      font-size: 2rem;
+      line-height: 1;
+    }
+    .doc-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #2c1a0e;
+    }
+    .doc-card .doc-type {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 3px 10px;
+      border-radius: 10px;
+      margin-bottom: 4px;
+    }
+    .doc-type.excel { background: #e2efda; color: #1f7a1f; }
+    .doc-type.word  { background: #deeaf1; color: #1f3864; }
+
+    .doc-card p {
+      font-size: 0.88rem;
+      color: #595959;
+      flex: 1;
+    }
+    .doc-card ul {
+      padding-left: 18px;
+      font-size: 0.85rem;
+      color: #595959;
+    }
+    .doc-card ul li { margin-bottom: 5px; }
+
+    .btn {
+      display: inline-block;
+      margin-top: 8px;
+      background: #2c1a0e;
+      color: #e8d5a3;
+      text-decoration: none;
+      padding: 9px 20px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: background 0.2s;
+      text-align: center;
+    }
+    .btn:hover { background: #6b4226; }
+    .btn.outline {
+      background: transparent;
+      border: 2px solid #2c1a0e;
+      color: #2c1a0e;
+    }
+    .btn.outline:hover { background: #2c1a0e; color: #e8d5a3; }
+
+    /* SYSTEM TABLE */
+    .sys-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin-top: 16px;
+    }
+    .sys-table th {
+      background: #2c1a0e;
+      color: #e8d5a3;
+      padding: 10px 14px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .sys-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #e8d5a3;
+      color: #595959;
+      vertical-align: top;
+    }
+    .sys-table tr:nth-child(even) td { background: #fdf6ed; }
+    .sys-table tr:last-child td { border-bottom: none; }
+    .sys-table .code {
+      font-family: 'Courier New', monospace;
+      font-weight: 700;
+      color: #2c1a0e;
+      font-size: 0.82rem;
+    }
+    .sys-table .tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 8px;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+    .tag.excel { background: #e2efda; color: #1f7a1f; }
+    .tag.word  { background: #deeaf1; color: #1f3864; }
+
+    /* QA LIST */
+    .qa-list {
+      list-style: none;
+      padding: 0;
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .qa-list li {
+      background: #fff;
+      border-radius: 8px;
+      padding: 14px 18px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      box-shadow: 0 1px 6px rgba(44,26,14,0.07);
+    }
+    .qa-num {
+      background: #c9a84c;
+      color: #2c1a0e;
+      font-weight: 700;
+      font-size: 0.82rem;
+      border-radius: 50%;
+      width: 26px;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .qa-list li div strong {
+      display: block;
+      color: #2c1a0e;
+      font-size: 0.9rem;
+      margin-bottom: 3px;
+    }
+    .qa-list li div span {
+      font-size: 0.85rem;
+      color: #595959;
+    }
+
+    /* NOTICE */
+    .notice {
+      background: #fff8e8;
+      border: 1px solid #c9a84c;
+      border-radius: 8px;
+      padding: 16px 20px;
+      font-size: 0.82rem;
+      color: #6b4226;
+      margin-top: 48px;
+      text-align: center;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #2c1a0e;
+      color: #e8d5a3;
+      text-align: center;
+      padding: 32px 24px;
+      margin-top: 64px;
+      font-size: 0.85rem;
+    }
+    footer a { color: #c9a84c; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Energy Savings Tracking &amp; M&amp;V System</h1>
+  <p class="subtitle">Measurement &amp; Verification Documentation Portfolio — Anonymized Demo</p>
+  <p class="meta">Jelena Teofanov Jakimovski &nbsp;·&nbsp; Business Operations Specialist &nbsp;·&nbsp; Novi Sad, Serbia</p>
+</header>
+
+<main>
+
+  <!-- CONTEXT -->
+  <div class="section-label"><h2>Context &amp; Purpose</h2></div>
+
+  <div class="callout">
+    <p>This portfolio presents a documentation and reporting system I <strong>designed and built from scratch</strong> for an energy services company operating public lighting projects under Public-Private Partnership agreements across <strong>40+ municipalities in Serbia</strong>.</p>
+    <br/>
+    <p>The system was built to meet contractual M&amp;V obligations — tracking guaranteed energy savings, comparing actual vs. projected consumption, and producing structured reports submitted to local government authorities as formal compliance documentation.</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat">📍 40+ municipalities</div>
+    <div class="stat">📅 15-year guarantee periods</div>
+    <div class="stat">🏛 Government-submitted reports</div>
+    <div class="stat">🔧 Built from scratch</div>
+    <div class="stat">✅ Zero errors policy</div>
+  </div>
+
+  <!-- SYSTEM ARCHITECTURE -->
+  <div class="section-label"><h2>System Architecture — Four Integrated Documents</h2></div>
+
+  <p style="font-size:0.92rem;color:#595959;margin-bottom:16px;">The system consists of four interconnected documents forming a complete data pipeline — from raw consumption data to formal government-submitted reports.</p>
+
+  <table class="sys-table">
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>Document</th>
+        <th>Type</th>
+        <th>Purpose</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="code">P01.02.20</td>
+        <td><strong>Energy Savings Report</strong></td>
+        <td><span class="tag excel">Excel</span></td>
+        <td>Master tracking file — calculates guaranteed vs. actual savings annually</td>
+      </tr>
+      <tr>
+        <td class="code">P01.02.12</td>
+        <td><strong>Consumption by Meter Point</strong></td>
+        <td><span class="tag excel">Excel</span></td>
+        <td>Monthly data input — tracks actual energy consumption per measurement point</td>
+      </tr>
+      <tr>
+        <td class="code">P01.02.10</td>
+        <td><strong>Quarterly M&amp;V Report</strong></td>
+        <td><span class="tag word">Word</span></td>
+        <td>Formal quarterly report submitted to municipalities</td>
+      </tr>
+      <tr>
+        <td class="code">P01.02.13</td>
+        <td><strong>Annual M&amp;V Report</strong></td>
+        <td><span class="tag word">Word</span></td>
+        <td>Formal annual report — basis for calculating bonuses or penalties under guarantee</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- PORTFOLIO SAMPLES -->
+  <div class="section-label"><h2>Portfolio Samples — Available for Download</h2></div>
+
+  <div class="doc-grid">
+
+    <div class="doc-card">
+      <div class="doc-icon">📊</div>
+      <span class="doc-type excel">Excel · 9 sheets</span>
+      <h3>Energy Savings Model</h3>
+      <p>Multi-sheet tracking model demonstrating linked assumptions, monthly projections, invoice actuals, operating cost performance, and 15-year CO₂ impact calculations.</p>
+      <ul>
+        <li>Automated deviation detection</li>
+        <li>Seasonal weighting for projections</li>
+        <li>Energy price escalation scenarios</li>
+        <li>Live formulas throughout</li>
+      </ul>
+      <a class="btn" href="https://docs.google.com/spreadsheets/d/13OQjZ8D4wPaz2QHWh6UzuLjXzsG-V9Gl/edit?usp=sharing" target="_blank">👁 View Excel Model</a>
+    </div>
+
+    <div class="doc-card">
+      <div class="doc-icon">📄</div>
+      <span class="doc-type word">Word · Annual Report</span>
+      <h3>M&amp;V Annual Report</h3>
+      <p>Formal annual compliance report adapted from master template — submitted to municipal authorities as the contractual basis for annual fee calculation.</p>
+      <ul>
+        <li>Full savings vs. guarantee comparison</li>
+        <li>Operational cost analysis (RSD &amp; EUR)</li>
+        <li>Environmental impact (CO₂ reduction)</li>
+        <li>Government-submission format</li>
+      </ul>
+      <a class="btn" href="https://docs.google.com/document/d/1zDH2fbnsIzneQ7pSlXlKfAtKUvwN_G92/edit?usp=sharing" target="_blank">👁 View M&V Report</a>
+    </div>
+
+  </div>
+
+  <!-- DATA INTEGRITY -->
+  <div class="section-label"><h2>Data Integrity &amp; Quality Control</h2></div>
+
+  <p style="font-size:0.92rem;color:#595959;margin-bottom:8px;">The system was designed with built-in quality controls at every stage:</p>
+
+  <ul class="qa-list">
+    <li>
+      <div class="qa-num">1</div>
+      <div>
+        <strong>Contractor invoice verification</strong>
+        <span>Monthly invoices from subcontractors approved only when consumption data matches the meter point tracker. Mismatches flagged and followed up before payment approval.</span>
+      </div>
+    </li>
+    <li>
+      <div class="qa-num">2</div>
+      <div>
+        <strong>Cross-document reconciliation</strong>
+        <span>Monthly totals in the meter point tracker must match data entered in the master savings report. Any discrepancy triggers a review of source electricity bills.</span>
+      </div>
+    </li>
+    <li>
+      <div class="qa-num">3</div>
+      <div>
+        <strong>Deviation flagging</strong>
+        <span>Monthly comparison between projected and actual kWh is automatic. Significant deviations trigger a written note in the quarterly report with explanation.</span>
+      </div>
+    </li>
+    <li>
+      <div class="qa-num">4</div>
+      <div>
+        <strong>Template version control</strong>
+        <span>All project reports produced from the same template version to ensure consistent legal language and formatting across all municipalities.</span>
+      </div>
+    </li>
+    <li>
+      <div class="qa-num">5</div>
+      <div>
+        <strong>Pre-submission review</strong>
+        <span>Every report reviewed against source data before submission to municipality. No report goes out with unresolved discrepancies.</span>
+      </div>
+    </li>
+  </ul>
+
+  <div class="notice">
+    ⚠️ Portfolio demo only · All names, identifiers, and figures are fictional · Not for distribution · © Jelena Teofanov Jakimovski 2026
+  </div>
+
+</main>
+
+<footer>
+  <p><strong>Jelena Teofanov Jakimovski</strong> &nbsp;·&nbsp; Business Operations Specialist</p>
+  <p style="margin-top:8px;opacity:0.8;">
+    <a href="mailto:teofanova@outlook.com">teofanova@outlook.com</a>
+    &nbsp;·&nbsp;
+    <a href="https://linkedin.com/in/jelena-teofanov-jakimovski" target="_blank">LinkedIn</a>
+    &nbsp;·&nbsp;
+    <a href="https://teofanova.github.io/ims-portfolio/" target="_blank">IMS Portfolio</a>
+    &nbsp;·&nbsp;
+    Novi Sad, Serbia
+  </p>
+</footer>
+
+</body>
+</html>
